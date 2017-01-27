@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "Avdweb_SAMDtimer.h"
+#include "avdweb_SAMDtimer.h"
 
 const byte LED1   = 3;
 const byte LED2   = 0;  
