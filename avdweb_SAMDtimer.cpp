@@ -5,25 +5,24 @@ as published by the Free Software Foundation, either version 3 of the License, o
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License at http://www.gnu.org/licenses .
 
-Version 26-1-2017
+These libraries should also be installed:
+Adafruit_ZeroTimer https://github.com/adafruit/Adafruit_ZeroTimer   
+Adafruit_ASFcore https://github.com/adafruit/Adafruit_ASFcore
+
+AUTHOR: Albert van Dalen
+WEBSITE: http://www.avdweb.nl/arduino/libraries/samd21-timer.html
+
+HISTORY:
+1.0.0 26-1-2017
 
 16 bit timer: max period_us = 1398080us (0.7Hz), min period_us = 1us (1MHz)
 
 note *1 SCK, MOSI, MISO are on Arduino Zero SPI header
 
 Timer              Arduino Zero pins              SAM15x15 pins
-SAMDtimer 0 8bit   D3 D18/A4 D17 D4               d[9]  d[5]  d[4]  d[8]              timer not yet implemented
-SAMDtimer 0 16bit  D3 D18/A4                      d[9]  d[5]                          timer not yet implemented
-SAMDtimer 1 8bit   D0 D9 D33 D8 D1 D30            d[11] d[7]  d[31] d[6] d[10] d[27]  timer not yet implemented                
-SAMDtimer 1 16bit  D0 D9 D33                      d[11] d[7]  d[31]                   timer not yet implemented
-SAMDtimer 2 8bit   D13 (D28) D22/MISO*1 D16       d[19] d[15] d[14] d[3]              timer not yet implemented
-SAMDtimer 2 16bit  D13 (D28)                      d[19] d[15]                         timer not yet implemented
 
-SAMDtimer 3 8bit   D5 D12 D2 D10                  d[17] d[21] d[16] d[20]             timer not yet implemented
 SAMDtimer 3 16bit  D5 D12                         d[17] d[21]
-SAMDtimer 4 8bit   D16/A2 D21/SCL D15/A1 D20/SDA  d[3]  d[25] d[2]  d[24]             timer not yet implemented
 SAMDtimer 4 16bit  D16/A2 D21/SCL                 d[3]  d[25] 
-SAMDtimer 5 8bit   D24/SCK*1 D23/MOSI*1           d[13] d[12]                         timer not yet implemented
 SAMDtimer 5 16bit  D24/SCK*1                      d[13] 
 */
 
