@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "avdweb_SAMDtimer.h"
 
+// Example timer library for the SAMD21 and Arduino Zero
+
 const byte LED1   = 3;
 const byte LED2   = 0;  
 const byte LED3   = 2;
