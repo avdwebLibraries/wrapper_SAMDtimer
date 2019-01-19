@@ -28,6 +28,18 @@ SAMDtimer 5 16bit  D24/SCK*1                      d[13]
 
 #include "avdweb_SAMDtimer.h"
 
+void TC3_Handler(){
+    Adafruit_ZeroTimer::timerHandler(3);
+}
+
+void TC4_Handler(){
+    Adafruit_ZeroTimer::timerHandler(4);
+}
+
+void TC5_Handler(){
+    Adafruit_ZeroTimer::timerHandler(5);
+}
+
 SAMDtimer::SAMDtimer(byte timerNr, tc_counter_size countersize, byte pin, unsigned period_us, int pulseWidth_us, bool timerEnable): 
 Adafruit_ZeroTimer(timerNr), pin(pin), countersize(countersize), period_us(period_us)  
 { if(pulseWidth_us==-1) calc(period_us, period_us/2);
@@ -38,10 +50,16 @@ Adafruit_ZeroTimer(timerNr), pin(pin), countersize(countersize), period_us(perio
 SAMDtimer::SAMDtimer(byte timerNr, void (*_ISR)(), unsigned period_us, bool ISRenable):
 Adafruit_ZeroTimer(timerNr)  
 { ISR = _ISR;
-  countersize = TC_COUNTER_SIZE_16BIT; 
-  calc(period_us, period_us/2);
-  init(1);
-  setCallback(ISRenable, TC_CALLBACK_CC_CHANNEL1, ISR); 
+  //countersize = TC_COUNTER_SIZE_16BIT; 
+  //calc(period_us, period_us/2);
+  //init(1);
+  configure(TC_CLOCK_PRESCALER_DIV1024, // prescaler
+      TC_COUNTER_SIZE_16BIT,   // bit width of timer/counter
+      TC_WAVE_GENERATION_MATCH_PWM // frequency or PWM mode
+  );
+  setPeriodMatch(46854, 23427,1);
+  setCallback(ISRenable, TC_CALLBACK_CC_CHANNEL0, ISR);
+  enable(ISRenable);
 }
 
 void SAMDtimer::setPulseWidth(unsigned pulseWidth_us)
@@ -51,7 +69,7 @@ void SAMDtimer::setPulseWidth(unsigned pulseWidth_us)
 
 void SAMDtimer::attachInterrupt(void (*_ISR)(), bool interruptEnable)
 { ISR = _ISR;
-  setCallback(interruptEnable, TC_CALLBACK_CC_CHANNEL1, ISR); 
+  setCallback(interruptEnable, TC_CALLBACK_CC_CHANNEL0, ISR); 
 }
 
 void SAMDtimer::enableTimer(bool timerEnable)
@@ -59,12 +77,12 @@ void SAMDtimer::enableTimer(bool timerEnable)
 }
 
 void SAMDtimer::enableInterrupt(bool interruptEnable)
-{ setCallback(interruptEnable, TC_CALLBACK_CC_CHANNEL1, ISR); 
+{ setCallback(interruptEnable, TC_CALLBACK_CC_CHANNEL0, ISR); 
 }
 
 void SAMDtimer::init(bool enabled)
 { configure(prescale, countersize, TC_WAVE_GENERATION_MATCH_PWM);
-  PWMout(true, 1, pin); // must be ch1 for 16bit
+  //PWMout(true, 1, pin); // must be ch1 for 16bit
   setPeriodMatch(periodCounter, PWcounter, 1);
   enable(enabled); 
 }
