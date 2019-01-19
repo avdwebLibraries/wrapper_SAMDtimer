@@ -35,7 +35,7 @@ Adafruit_ZeroTimer(timerNr), pin(pin), countersize(countersize), period_us(perio
   init(timerEnable);    
 }
 
-SAMDtimer::SAMDtimer(byte timerNr, tc_callback_t _ISR, unsigned period_us, bool ISRenable):
+SAMDtimer::SAMDtimer(byte timerNr, void (*_ISR)(), unsigned period_us, bool ISRenable):
 Adafruit_ZeroTimer(timerNr)  
 { ISR = _ISR;
   countersize = TC_COUNTER_SIZE_16BIT; 
@@ -49,7 +49,7 @@ void SAMDtimer::setPulseWidth(unsigned pulseWidth_us)
   setPeriodMatch(periodCounter, PWcounter, 1); 
 }
 
-void SAMDtimer::attachInterrupt(tc_callback_t _ISR, bool interruptEnable)
+void SAMDtimer::attachInterrupt(void (*_ISR)(), bool interruptEnable)
 { ISR = _ISR;
   setCallback(interruptEnable, TC_CALLBACK_CC_CHANNEL1, ISR); 
 }
