@@ -6,9 +6,9 @@ This library needs the [Adafruit_ZeroTimer](https://github.com/adafruit/Adafruit
 
 For more information visit http://www.avdweb.nl/arduino/libraries/samd21-timer.html
 
-##Basic usage
+## Basic usage
 
-###1. Using a timer with an output pin
+### 1. Using a timer with an output pin
 
 The library is easy to use; the following code generates a square wave of 1Hz to pin 5 of the Arduino Zero:
 
@@ -33,7 +33,7 @@ Alert readers might notice that the first two parameters are not strictly necess
 - There is no check on the proper parameters values.
 - Without specifying the pulse width, it is the half of the period time (duty cycle 50%).
 
-### 2 Timer interrupts
+### 2. Timer interrupts
 
 A timer can also be used for calling interrupts, without using a timer output pin. To periodically execute an ISR, simply use this code:
 
@@ -54,7 +54,7 @@ The ISR should look as follows:
         //your code here
     }
 
-## 3 Attaching interrupts to a timer with an output pin
+### 3. Attaching interrupts to a timer with an output pin
 
 A timer can be used for both calling an interrupt and steering its output pin at the same time. This has to be carried out in two steps: first create a timer with an output pin, and than attach an ISR to it.
 
