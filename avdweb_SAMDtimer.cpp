@@ -50,6 +50,7 @@ Adafruit_ZeroTimer(timerNr), pin(pin), countersize(countersize), period_us(perio
 SAMDtimer::SAMDtimer(byte timerNr, void (*_ISR)(), unsigned period_us, bool ISRenable):
 Adafruit_ZeroTimer(timerNr)  
 { ISR = _ISR;
+  pin=-1;
   countersize = TC_COUNTER_SIZE_16BIT; 
   calc(period_us, period_us/2);
   init(1);
@@ -76,7 +77,7 @@ void SAMDtimer::enableInterrupt(bool interruptEnable)
 
 void SAMDtimer::init(bool enabled)
 { configure(prescale, countersize, TC_WAVE_GENERATION_MATCH_PWM);
-  //PWMout(true, 1, pin); // must be ch1 for 16bit
+  if(pin>0)PWMout(true, 1, pin); // must be ch1 for 16bit
   setPeriodMatch(periodCounter, PWcounter, 1);
   enable(enabled); 
 }
@@ -93,8 +94,3 @@ void SAMDtimer::calc(unsigned period_us, unsigned pulseWidth_us)
   else if((PWcounter >>= 2, periodCounter >>= 2) < 65536) prescale = TC_CLOCK_PRESCALER_DIV256; 
   else if((PWcounter >>= 2, periodCounter >>= 2) < 65536) prescale = TC_CLOCK_PRESCALER_DIV1024; 
 }
-
-
-
-
-
