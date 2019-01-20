@@ -50,16 +50,10 @@ Adafruit_ZeroTimer(timerNr), pin(pin), countersize(countersize), period_us(perio
 SAMDtimer::SAMDtimer(byte timerNr, void (*_ISR)(), unsigned period_us, bool ISRenable):
 Adafruit_ZeroTimer(timerNr)  
 { ISR = _ISR;
-  //countersize = TC_COUNTER_SIZE_16BIT; 
-  //calc(period_us, period_us/2);
-  //init(1);
-  configure(TC_CLOCK_PRESCALER_DIV1024, // prescaler
-      TC_COUNTER_SIZE_16BIT,   // bit width of timer/counter
-      TC_WAVE_GENERATION_MATCH_PWM // frequency or PWM mode
-  );
-  setPeriodMatch(46854, 23427,1);
+  countersize = TC_COUNTER_SIZE_16BIT; 
+  calc(period_us, period_us/2);
+  init(1);
   setCallback(ISRenable, TC_CALLBACK_CC_CHANNEL0, ISR);
-  enable(ISRenable);
 }
 
 void SAMDtimer::setPulseWidth(unsigned pulseWidth_us)
