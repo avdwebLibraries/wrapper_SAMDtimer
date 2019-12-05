@@ -14,9 +14,9 @@ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Publ
 class SAMDtimer : public Adafruit_ZeroTimer 
 { public:
     SAMDtimer(byte timerNr, tc_counter_size countersize, byte pin, unsigned period_us, int pulseWidth_us=-1, bool timerEnable=1); // For timer with output
-    SAMDtimer(byte timerNr, tc_callback_t _ISR, unsigned period_us, bool ISRenable=1); // For timer interrupt, without output 
+    SAMDtimer(byte timerNr, void (*_ISR)(), unsigned period_us, bool ISRenable=1); // For timer interrupt, without output 
     
-    void attachInterrupt(tc_callback_t _ISR, bool interruptEnable=1); // attach ISR to a timer with output, or exchange the ISR
+    void attachInterrupt(void (*_ISR)(), bool interruptEnable=1); // attach ISR to a timer with output, or exchange the ISR
     void enableTimer(bool timerEnable);
     void enableInterrupt(bool interruptEnable);
     void setPulseWidth(unsigned pulseWidth_us);
@@ -26,7 +26,7 @@ class SAMDtimer : public Adafruit_ZeroTimer
     void calc(unsigned period_us, unsigned pulseWidth_us);  
 
     byte pin;
-    tc_callback_t ISR;
+    void (*ISR)();
     unsigned period_us, periodCounter, PWcounter;
     tc_clock_prescaler prescale;
     tc_counter_size countersize;  

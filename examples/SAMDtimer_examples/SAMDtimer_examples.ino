@@ -8,19 +8,19 @@ const byte LED2   = 0;
 const byte LED3   = 2;
 const byte LED4   = 5; // timer3 16bit has 2 pins: 5 12
 
-void ISR_timer3_LED1(struct tc_module *const module_inst) 
+void ISR_timer3_LED1()
 { static bool b;
   pinMode(LED1, OUTPUT);
   digitalWrite(LED1, b=!b);
 }
 
-void ISR_timer4_LED2(struct tc_module *const module_inst) 
+void ISR_timer4_LED2()
 { static bool b;
   pinMode(LED2, OUTPUT);
   digitalWrite(LED2, b=!b);
 }
 
-void ISR_timer4_LED3(struct tc_module *const module_inst) 
+void ISR_timer4_LED3()
 { static bool b;
   pinMode(LED3, OUTPUT);
   digitalWrite(LED3, b=!b);
